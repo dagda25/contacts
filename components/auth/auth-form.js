@@ -27,9 +27,11 @@ function AuthForm() {
   const passwordInputRef = useRef();
 
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState(false);
   const router = useRouter();
 
   function switchAuthModeHandler() {
+    setError(false);
     setIsLogin((prevState) => !prevState);
   }
 
@@ -40,6 +42,7 @@ function AuthForm() {
     const enteredPassword = passwordInputRef.current.value;
 
     if (isLogin) {
+      setError(false);
       const result = await signIn('credentials', {
         redirect: false,
         email: enteredEmail,
@@ -47,29 +50,29 @@ function AuthForm() {
       });
 
       if (!result.error) {
-        // set some auth state
         router.replace('/contacts');
+      } else {
+        setError(true);
       }
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
-        console.log(result);
       } catch (error) {
-        console.log(error);
+        setError(true);
       }
     }
   }
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+      <h1>{isLogin ? 'Вход' : 'Регистрация'}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">Введите Email</label>
           <input type="email" id="email" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password">Введите пароль</label>
           <input
             type="password"
             id="password"
@@ -79,16 +82,21 @@ function AuthForm() {
           />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          <button>{isLogin ? 'Войти' : 'Зарегистрироваться'}</button>
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
+            {isLogin
+              ? 'Создать новый аккаунт'
+              : 'Войти с существующим аккаунтом'}
           </button>
         </div>
       </form>
+      {error && (
+        <div className={classes.error}>Произошла ошибка! Попробуйте снова.</div>
+      )}
     </section>
   );
 }

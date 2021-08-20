@@ -1,12 +1,1 @@
-[
-  {
-    "email": "a@b.x",
-    "password": "$2a$12$bPgJ8LtBm9Qt/caQ8DaiEODgLcLbbMogUx.XrWG.k97DLCcdvUs4.",
-    "contacts": []
-  },
-  {
-    "email": "dagda25@gmail.com",
-    "password": "$2a$12$bPgJ8LtBm9Qt/caQ8DaiEODgLcLbbMogUx.XrWG.k97DLCcdvUs4.",
-    "contacts": [{ "name": "Contact1" }]
-  }
-]
+[{"email":"dagda25@gmail.com","password":"$2a$12$7QZf3xjj1yJeo1q028.Vcubwbhyw4VLujAo/6OL1OVauUHrtvH49q","contacts":[]},{"email":"test@test.test","password":"$2a$12$Q.FyoMRniMHYQiK9dNZ5je5q7Wmx0peB53IBXlPJzKn/IkInyAzEK","contacts":[]},{"email":"dagda25@gmail.com2","password":"$2a$12$CXN2IFSJ5F2RyBo8XUvv7ugfIa8QTveRfpKxhlolRXpAi6xIotl7K","contacts":[]}]

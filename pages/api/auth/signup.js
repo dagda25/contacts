@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { hashPassword } from '../../../lib/auth';
+import { nanoid } from 'nanoid';
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -42,7 +43,7 @@ async function handler(req, res) {
   users.push({
     email,
     password: hashedPassword,
-    contacts: [{ name: 'My first contact' }],
+    contacts: [{ name: 'My first contact', id: nanoid() }],
   });
   fs.writeFileSync(file, JSON.stringify(users));
 

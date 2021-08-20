@@ -1,10 +1,21 @@
 import Contact from '../contact/contact';
 
-const ContactsList = ({ contacts }) => {
+const ContactsList = ({
+  contacts,
+  session,
+  handleDeleteClick,
+  handleSaveClick,
+}) => {
   return (
     <ul>
       {contacts.map((contact) => (
-        <Contact contact={contact} key={contact.id} />
+        <Contact
+          session={session}
+          handleDeleteClick={handleDeleteClick}
+          handleSaveClick={handleSaveClick}
+          contact={contact}
+          key={contact.id}
+        />
       ))}
     </ul>
   );
