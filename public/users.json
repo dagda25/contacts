@@ -1,1 +1,12 @@
-[{"email":"dagda25@gmail.com","password":"123123123"},{"email":"a@a.a","password":"123123123"}]
+[
+  {
+    "email": "a@b.x",
+    "password": "$2a$12$bPgJ8LtBm9Qt/caQ8DaiEODgLcLbbMogUx.XrWG.k97DLCcdvUs4.",
+    "contacts": []
+  },
+  {
+    "email": "dagda25@gmail.com",
+    "password": "$2a$12$bPgJ8LtBm9Qt/caQ8DaiEODgLcLbbMogUx.XrWG.k97DLCcdvUs4.",
+    "contacts": [{ "name": "Contact1" }]
+  }
+]

@@ -3,6 +3,7 @@ import Providers from 'next-auth/providers';
 
 import fs from 'fs';
 import path from 'path';
+import { verifyPassword } from '../../../lib/auth';
 
 export default NextAuth({
   session: {
@@ -23,7 +24,11 @@ export default NextAuth({
           throw new Error('No user found!');
         }
 
-        const isValid = user.password === credentials.password;
+        const isValid = await verifyPassword(
+          credentials.password,
+          user.password
+        );
+
         console.log(isValid);
 
         if (!isValid) {

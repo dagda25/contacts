@@ -1,8 +1,19 @@
-import { getSession } from 'next-auth/client';
+import { getSession, signOut } from 'next-auth/client';
 import ContactsList from '../components/contacts-list/contacts-list';
+import fs from 'fs';
+import path from 'path';
 
-function ContactsPage() {
-  return <ContactsList />;
+function ContactsPage({ contacts = [], session }) {
+  function logoutHandler() {
+    signOut();
+  }
+  return (
+    <>
+      <div>{session.user.email}</div>
+      {session && <button onClick={logoutHandler}>Logout</button>}
+      <ContactsList contacts={contacts} />
+    </>
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -16,15 +27,18 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  console.log(session);
 
-  const contacts = [
-    { id: 1, name: '111' },
-    { id: 2, name: '222' },
-    { id: 3, name: '333' },
-  ];
+  const file = path.join('./public', 'users.json');
+
+  let fileContent = fs.readFileSync(file, 'utf8');
+
+  const users = JSON.parse(fileContent);
+
+  const currentUser = users.find((user) => user.email === session.user.email);
 
   return {
-    props: { session, contacts },
+    props: { session, contacts: currentUser.contacts },
   };
 }
 

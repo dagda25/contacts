@@ -75,6 +75,7 @@ function AuthForm() {
             id="password"
             required
             ref={passwordInputRef}
+            minLength="3"
           />
         </div>
         <div className={classes.actions}>

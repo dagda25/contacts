@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { hashPassword } from '../../../lib/auth';
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -14,11 +15,10 @@ async function handler(req, res) {
     !email ||
     !email.includes('@') ||
     !password ||
-    password.trim().length < 7
+    password.trim().length < 3
   ) {
     res.status(422).json({
-      message:
-        'Invalid input - password should also be at least 7 characters long.',
+      message: 'Invalid input',
     });
     return;
   }
@@ -37,7 +37,13 @@ async function handler(req, res) {
     return;
   }
 
-  users.push({ email, password });
+  const hashedPassword = await hashPassword(password);
+
+  users.push({
+    email,
+    password: hashedPassword,
+    contacts: [{ name: 'My first contact' }],
+  });
   fs.writeFileSync(file, JSON.stringify(users));
 
   res.status(201).json({ message: 'Created user!' });
