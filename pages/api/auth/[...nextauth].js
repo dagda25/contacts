@@ -14,11 +14,8 @@ export default NextAuth({
       async authorize(credentials) {
         const file = path.join('./public', 'users.json');
         let fileContent = fs.readFileSync(file, 'utf-8');
-        console.log(fileContent, '16');
         const users = JSON.parse(fileContent);
-        console.log(users, '18');
         const user = users.find((user) => user.email === credentials.email);
-        console.log(user, '22');
 
         if (!user) {
           throw new Error('No user found!');
@@ -28,8 +25,6 @@ export default NextAuth({
           credentials.password,
           user.password
         );
-
-        console.log(isValid);
 
         if (!isValid) {
           throw new Error('Could not log you in!');

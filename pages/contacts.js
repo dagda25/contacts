@@ -6,33 +6,53 @@ import { useState } from 'react';
 
 function ContactsPage({ contacts = [], session }) {
   const [data, setData] = useState(contacts);
+  const [newContact, setNewContact] = useState('');
+
   function logoutHandler() {
     signOut();
   }
   const handleDeleteClick = async (contact) => {
-    console.log(contact);
-    await fetch('/api/contacts', {
+    const result = await fetch('/api/contacts', {
       method: 'DELETE',
       body: JSON.stringify({ contact, email: session.user.email }),
     });
-    setData(() => {
-      return data.filter((c) => {
-        return c.id !== contact.id;
-      });
-    });
+
+    const json = await result.json();
+    setData(json.contacts);
   };
 
-  const handleSaveClick = async () => {
-    setEditable(false);
-    await fetch('/api/contacts', {
+  const handleSaveClick = async (contact) => {
+    const result = await fetch('/api/contacts', {
       method: 'PATCH',
-      body: JSON.stringify(...contact),
+      body: JSON.stringify({ contact, email: session.user.email }),
     });
+
+    const json = await result.json();
+    setData(json.contacts);
+  };
+
+  const handleAddClick = async () => {
+    const result = await fetch('/api/contacts', {
+      method: 'POST',
+      body: JSON.stringify({ name: newContact, email: session.user.email }),
+    });
+    const json = await result.json();
+    setData(json.contacts);
   };
   return (
     <>
       <div>{session.user.email}</div>
       {session && <button onClick={logoutHandler}>Logout</button>}
+      <div>
+        <input
+          type="text"
+          value={newContact}
+          onChange={(e) => {
+            setNewContact(e.target.value);
+          }}
+        />
+        <button onClick={handleAddClick}>Добавить контакт</button>
+      </div>
       <ContactsList
         handleDeleteClick={handleDeleteClick}
         handleSaveClick={handleSaveClick}
@@ -54,7 +74,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log(session);
 
   const file = path.join('./public', 'users.json');
 
