@@ -14,3 +14,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

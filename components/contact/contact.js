@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classes from './contact.module.css';
 
 const Contact = ({ contact, handleSaveClick, handleDeleteClick }) => {
   const [editable, setEditable] = useState(false);
@@ -16,22 +17,34 @@ const Contact = ({ contact, handleSaveClick, handleDeleteClick }) => {
 
   return (
     <>
-      <li>
+      <li className={classes.contact}>
         {editable ? (
           <input
             type="text"
             onChange={(e) => setName(e.target.value)}
             value={name}
+            className={classes.input}
           />
         ) : (
-          <span>{name}</span>
+          <span className={classes.name}>{name}</span>
         )}
-        {editable ? (
-          <button onClick={onSave}>Сохранить</button>
-        ) : (
-          <button onClick={handleEditClick}>Редактировать</button>
-        )}
-        <button onClick={() => handleDeleteClick(contact)}>Удалить</button>
+        <div className={classes.buttons}>
+          {editable ? (
+            <button onClick={onSave} className={classes.button}>
+              Сохранить
+            </button>
+          ) : (
+            <button onClick={handleEditClick} className={classes.button}>
+              Редактировать
+            </button>
+          )}
+          <button
+            onClick={() => handleDeleteClick(contact)}
+            className={classes.button}
+          >
+            Удалить
+          </button>
+        </div>
       </li>
     </>
   );
