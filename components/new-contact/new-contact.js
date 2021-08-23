@@ -3,8 +3,12 @@ import classes from './new-contact.module.css';
 
 const NewContact = ({ handleAddClick }) => {
   const [newContact, setNewContact] = useState('');
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleAddClick(newContact);
+  };
   return (
-    <div className={classes.form}>
+    <form className={classes.form} onSubmit={onSubmit}>
       <input
         className={classes.input}
         type="text"
@@ -12,14 +16,10 @@ const NewContact = ({ handleAddClick }) => {
         onChange={(e) => {
           setNewContact(e.target.value);
         }}
+        required
       />
-      <button
-        className={classes.button}
-        onClick={() => handleAddClick(newContact)}
-      >
-        Добавить контакт
-      </button>
-    </div>
+      <button className={classes.button}>Добавить контакт</button>
+    </form>
   );
 };
 
