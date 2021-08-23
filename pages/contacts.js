@@ -3,10 +3,11 @@ import ContactsList from '../components/contacts-list/contacts-list';
 import fs from 'fs';
 import path from 'path';
 import { useState } from 'react';
+import Header from '../components/header/header';
+import NewContact from '../components/new-contact/new-contact';
 
 function ContactsPage({ contacts = [], session }) {
   const [data, setData] = useState(contacts);
-  const [newContact, setNewContact] = useState('');
 
   function logoutHandler() {
     signOut();
@@ -31,7 +32,7 @@ function ContactsPage({ contacts = [], session }) {
     setData(json.contacts);
   };
 
-  const handleAddClick = async () => {
+  const handleAddClick = async (newContact) => {
     const result = await fetch('/api/contacts', {
       method: 'POST',
       body: JSON.stringify({ name: newContact, email: session.user.email }),
@@ -41,24 +42,14 @@ function ContactsPage({ contacts = [], session }) {
   };
   return (
     <>
-      <div>{session.user.email}</div>
-      {session && <button onClick={logoutHandler}>Logout</button>}
-      <div>
-        <input
-          type="text"
-          value={newContact}
-          onChange={(e) => {
-            setNewContact(e.target.value);
-          }}
-        />
-        <button onClick={handleAddClick}>Добавить контакт</button>
-      </div>
+      <Header session={session} onLogout={logoutHandler} />
       <ContactsList
         handleDeleteClick={handleDeleteClick}
         handleSaveClick={handleSaveClick}
         contacts={data}
         session={session}
       />
+      <NewContact handleAddClick={handleAddClick} />
     </>
   );
 }

@@ -4,9 +4,17 @@
   justify-content: space-between;
   align-items: center;
   margin: 0px auto;
-  padding: 10px;
+  padding: 10px 1rem;
   list-style: none;
   border-bottom: 1px solid #38015c;
+}
+
+.contact:first-child {
+  border-top: 1px solid #38015c;
+}
+
+.contact:hover {
+  background-color: #eeeeee;
 }
 
 .name {
@@ -56,9 +64,6 @@
     min-height: 0px;
     padding: 0.1rem 0.5rem;
   }
-  .button:first-child {
-    margin-left: 0;
-  }
 }
 
 @media screen and (max-width: 400px) {
@@ -73,5 +78,8 @@
   .button {
     min-height: 0px;
     padding: 0.1rem 0.5rem;
+  }
+  .button:first-child {
+    margin-left: 0;
   }
 }
