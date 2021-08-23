@@ -44,6 +44,11 @@ export default function handler(req, res) {
   }
 
   if (req.method === 'POST') {
+    if (!parsedBody.name) {
+      return res
+        .status(400)
+        .json({ message: 'Invalid input', contacts: contacts });
+    }
     contacts.push({ name: parsedBody.name, id: nanoid() });
     currentUser.contacts = contacts;
     fs.writeFileSync(file, JSON.stringify(users));

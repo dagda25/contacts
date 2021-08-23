@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
 import classes from './auth-form.module.css';
+import Error from '../error/error';
 
 async function createUser(email, password) {
   const response = await fetch('/api/auth/signup', {
@@ -102,9 +103,7 @@ function AuthForm() {
           </button>
         </div>
       </form>
-      {error && (
-        <div className={classes.error}>Произошла ошибка! Попробуйте снова.</div>
-      )}
+      {error && <Error text="Произошла ошибка! Попробуйте снова." />}
     </section>
   );
 }
