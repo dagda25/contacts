@@ -10,7 +10,6 @@ function AuthPage() {
 
   useEffect(() => {
     getSession().then((session) => {
-      console.log(session);
       if (session) {
         router.replace('/contacts');
       } else {
@@ -20,7 +19,7 @@ function AuthPage() {
   }, [router]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Загрузка...</p>;
   }
 
   return <AuthForm />;

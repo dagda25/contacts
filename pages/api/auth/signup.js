@@ -8,9 +8,7 @@ async function handler(req, res) {
     return;
   }
 
-  const data = req.body;
-
-  const { email, password } = data;
+  const { email, password } = req.body;
 
   if (
     !email ||

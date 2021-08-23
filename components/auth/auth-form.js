@@ -35,13 +35,42 @@ function AuthForm() {
     setIsLogin((prevState) => !prevState);
   }
 
-  async function submitHandler(event) {
+  const auth = async (login, password) => {
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: login,
+      password,
+    });
+
+    if (!result.error) {
+      router.replace('/contacts');
+    } else {
+      setError(true);
+    }
+  };
+
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
+    setError(false);
+
+    if (!isLogin) {
+      try {
+        await createUser(enteredEmail, enteredPassword);
+        await auth(enteredEmail, enteredPassword);
+      } catch (error) {
+        setError(true);
+      }
+    }
+
     if (isLogin) {
+      await auth(enteredEmail, enteredPassword);
+    }
+
+    /*if (isLogin) {
       setError(false);
       const result = await signIn('credentials', {
         redirect: false,
@@ -60,8 +89,8 @@ function AuthForm() {
       } catch (error) {
         setError(true);
       }
-    }
-  }
+    }*/
+  };
 
   return (
     <section className={classes.auth}>
