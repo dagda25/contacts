@@ -22,10 +22,9 @@ async function handler(req, res) {
     return;
   }
 
-  //const file = path.join('./public', 'users.json');
-  const file = path.join('/', 'users.json');
+  const file = path.join('./public', 'users.json');
 
-  let fileContent = fs.readFileSync('/users.json', 'utf8');
+  let fileContent = fs.readFileSync(file, 'utf8');
 
   const users = JSON.parse(fileContent);
 

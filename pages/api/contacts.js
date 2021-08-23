@@ -3,9 +3,8 @@ import path from 'path';
 import { nanoid } from 'nanoid';
 
 export default function handler(req, res) {
-  //const file = path.join('./public', 'users.json');
-  const file = path.join('/', 'users.json');
-  let fileContent = fs.readFileSync('/users.json', 'utf8');
+  const file = path.join('./public', 'users.json');
+  let fileContent = fs.readFileSync(file, 'utf8');
   const users = JSON.parse(fileContent);
   const currentUser = users.find((user) => {
     return user.email === JSON.parse(req.body).email;
