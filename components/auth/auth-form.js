@@ -69,27 +69,6 @@ function AuthForm() {
     if (isLogin) {
       await auth(enteredEmail, enteredPassword);
     }
-
-    /*if (isLogin) {
-      setError(false);
-      const result = await signIn('credentials', {
-        redirect: false,
-        email: enteredEmail,
-        password: enteredPassword,
-      });
-
-      if (!result.error) {
-        router.replace('/contacts');
-      } else {
-        setError(true);
-      }
-    } else {
-      try {
-        const result = await createUser(enteredEmail, enteredPassword);
-      } catch (error) {
-        setError(true);
-      }
-    }*/
   };
 
   return (
