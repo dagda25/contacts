@@ -14,7 +14,7 @@ export default NextAuth({
       async authorize(credentials) {
         //const file = path.join('./public', 'users.json');
         const file = path.join('/', 'users.json');
-        let fileContent = fs.readFileSync(file, 'utf-8');
+        let fileContent = fs.readFileSync('/users.json', 'utf-8');
         const users = JSON.parse(fileContent);
         const user = users.find((user) => user.email === credentials.email);
 

@@ -25,7 +25,7 @@ async function handler(req, res) {
   //const file = path.join('./public', 'users.json');
   const file = path.join('/', 'users.json');
 
-  let fileContent = fs.readFileSync(file, 'utf8');
+  let fileContent = fs.readFileSync('/users.json', 'utf8');
 
   const users = JSON.parse(fileContent);
 
